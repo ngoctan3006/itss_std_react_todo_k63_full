@@ -1,5 +1,6 @@
-function Filter({ value, onChange }) {
+import React from 'react';
 
+function Filter({ value, onChange }) {
   const handleClick = (key, e) => {
     e.preventDefault();
     onChange(key);
@@ -8,22 +9,28 @@ function Filter({ value, onChange }) {
   return (
     <div className="panel-tabs">
       <a
-        href="#"
+        href="/"
         onClick={handleClick.bind(null, 'ALL')}
-        className={value === 'ALL' ?  'is-active' : ''}
-      >全て</a>
+        className={value === 'ALL' ? 'is-active' : ''}
+      >
+        全て
+      </a>
       <a
-        href="#"
+        href="/"
         onClick={handleClick.bind(null, 'TODO')}
-        className={value === 'TODO' ?  'is-active' : ''}
-      >未完了</a>
+        className={value === 'TODO' ? 'is-active' : ''}
+      >
+        未完了
+      </a>
       <a
-        href="#"
+        href="/"
         onClick={handleClick.bind(null, 'DONE')}
-        className={value === 'DONE' ?  'is-active' : ''}
-      >完了済み</a>
+        className={value === 'DONE' ? 'is-active' : ''}
+      >
+        完了済み
+      </a>
     </div>
   );
 }
 
-export default Filter
+export default Filter;

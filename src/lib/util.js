@@ -1,1 +1,4 @@
-export const getKey = () => Math.random().toString(32).substring(2);
+export const getKey = () =>
+  Math.random()
+    .toString(36)
+    .substring(2);
