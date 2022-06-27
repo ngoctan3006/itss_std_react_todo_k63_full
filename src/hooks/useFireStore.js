@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { addItem, clearItem, getItems, updateItem } from '../firebase/service';
 
 const useFirestore = (collection, condition) => {
   const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    getItems();
-  }, []);
 
   const getTodos = async () => {
     const items = await getItems();
@@ -14,21 +10,15 @@ const useFirestore = (collection, condition) => {
   };
 
   const addTodo = async (item) => {
-    const newTodo = { text: item.text, done: item.done };
-    await addItem(newTodo);
-    setTodos([...todos, newTodo]);
+    await addItem(item);
+    setTodos([...todos, item]);
   };
 
-  const updateTodo = async (checked) => {
-    const changes = { done: !checked.done };
-    await updateItem(changes, checked.id);
-    const newItems = todos.map((item) => {
-      if (item.id === checked.id) {
-        item = { ...item, changes };
-      }
-      return item;
-    });
-    setTodos(newItems);
+  const updateTodo = async (item) => {
+    const changes = { done: !item.done };
+    const newTodos = todos.map((el) => (el.id === item.id ? { ...item, ...changes } : el));
+    setTodos(newTodos);
+    await updateItem(changes, item.id);
   };
 
   const clear = () => {
